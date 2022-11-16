@@ -138,7 +138,7 @@ PATH=$PATH:$HOME/software/kmergenie-1.7051
 $ source ~/.bash_profile
 ```
 
-新建一个脚本文件，work_kmer.sh，写入以下内容（注意当前路径是否在lab1/result）:  
+新建一个脚本文件，work_kmer.sh，写入以下内容（注意查看当前路径是否在lab1/result）:  
 ```shell
 #!/bin/bash
 #$ -S /bin/bash
