@@ -133,4 +133,4 @@ drwxrwxr-x 3 daizj daizj 4.0K Nov 17 18:32 theVoid.contig-dpp-500-500
 ## 五、参考资料  
 1. [prokka github/gitee](https://gitee.com/ZhijunBioinf/genomicSoftware-prokka)
 2. [maker tutorial](http://gmod.org/wiki/MAKER_Tutorial)
- 
+3. [Artemis Manual](https://sanger-pathogens.github.io/Artemis/Artemis/artemis-manual.html)
