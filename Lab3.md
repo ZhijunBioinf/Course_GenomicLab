@@ -98,7 +98,7 @@ maker
 $ qsub work_maker.sh
 ```
 
-**真核生物基因组注释比较复杂，这里只是向大家介绍了 _maker_ 的一般使用，如果要使用maker注释新的基因组，建议参阅：**
+**真核生物基因组注释比较复杂，这里只是向大家介绍了 _maker_ 的一般使用，如果要使用 _maker_ 注释新的基因组，建议参阅：**
 [http://gmod.org/wiki/MAKER_Tutorial](http://gmod.org/wiki/MAKER_Tutorial)  
 
  **查看结果文件** 
@@ -115,8 +115,8 @@ drwxrwxr-x 3 daizj daizj 4.0K Nov 17 18:32 theVoid.contig-dpp-500-500
 
 ### 用Artemis查看注释结果（请在本地完成）  
 - 下载地址：http://sanger-pathogens.github.io/Artemis/  
-- 将prokka注释得到的PROKKA.gff文件传到本地电脑上  
-- 打开Artemis，装载注释结果  
+- 将 _prokka_ 注释得到的 _PROKKA.gff_ 文件传到本地电脑上  
+- 打开 _Artemis_ ，装载注释结果  
 >    1. Start Artemis  
 >    2. Click OK  
 >    3. Go to File -> Open File Manager  
