@@ -7,41 +7,38 @@
 
 ## 二、基因组组装组装原理与方法  
 ### 两种策略  
-   1. Overlap/layout/consensus
+   1. Overlap/layout/consensus  
+主要应用在长reads组装上，如sanger测序数据和第三代测序数据，组装软件包括phrap, cap3等。基本步骤：
+> 1）Calculate all overlaps. 计算重叠片断  
+> 2）Cluster based on overlap. 重叠片断聚类  
+> 3）Do a multiple sequence alignment. 多序列比对,取一致序列 
+
    2. De Bruijn k-mer graphs  
+主要应用于短reads数据组装上，包括velvet, soapdenovo, ABYSS等。基本步骤：
+> 1）Building the k-mer graph，构建k-mer图，有的软件会在之前加一步，对reads进行纠错  
+> 2）Construct contigs，搜索路径  
+> 3）Scaffolding and fill gaps，构建scaffold并填洞  
 
-第一种策略主要应用在长reads组装上，如sanger测序数据和第三代测序数据，组装软件包括phrap, cap3等。  第二种策略主要应用于短reads数据组装上，包括velvet, soapdenovo, ABYSS等。  
-
-**Overlap/layout/consensus基本步骤**  
-> 1. Calculate all overlaps. 计算重叠片断  
-> 2. Cluster based on overlap. 重叠片断聚类  
-> 3. Do a multiple sequence alignment. 多序列比对,取一致序列  
-
-**De Bruijin k-mer graphs基本步骤**  
-> 1. Building the k-mer graph，构建k-mer图，有的软件会在之前加一步，对reads进行纠错  
-> 2. Construct contigs，搜索路径  
-> 3. Scaffolding and fill gaps，构建scaffold并填洞  
-
-本实验主要介绍使用第二种策略的组装软件velvet, minia和SPAdes的使用
+**本实验使用第二种策略的组装软件velvet, minia和SPAdes** 
 
 ### 如何选择合适k
-1. 多试几个k，看组装效果
-2. 利用如[KmerGenie](http://kmergenie.bx.psu.edu/)进行辅助选择  
+- 多试几个k，看组装效果
+- 利用如[KmerGenie](http://kmergenie.bx.psu.edu/)进行辅助选择  
  
 ### 如何选择组装软件
-1. 选择你熟悉的软件  
-2. 选择大家使用多的软件
-3. 选择适合项目性质的软件，如基因组大小，染色体倍性，杂合度，数据类型，宏基因组，转录组等
+- 选择你熟悉的软件  
+- 选择大家使用多的软件
+- 选择适合项目性质的软件，如基因组大小，染色体倍性，杂合度，数据类型，宏基因组，转录组等
 
 > [98 Free Whole Genome Assembly (WGA) Analysis Tools](https://bioinformaticshome.com/tools/wga/wga.html)
 
 ## 三、上机操作
-### 在conda中重新安装R
+### 3.1 准备conda以及R
 ```shell
 $ source /opt/miniconda3/bin/activate
 $ conda create -n r_env r-essentials r-base
 ```
-### 如果不成功，需要自己先安装[miniconda](https://repo.anaconda.com/miniconda/Miniconda3-py37_4.12.0-Linux-x86_64.sh)
+**如果不成功，需要自己先安装[miniconda](https://repo.anaconda.com/miniconda/Miniconda3-py37_4.12.0-Linux-x86_64.sh)**
 ```shell
 # 按步骤输入yes
 $ ln -s /data/stdata/genomic/software/Miniconda3-py37_4.12.0-Linux-x86_64.sh
@@ -63,7 +60,7 @@ $ conda config --set show_channel_urls yes
 $ conda create -n r_env r-essentials r-base
 ```
 
-### 创建工作目录
+### 3.2 创建工作目录
 ```shell
 # 每个用户home目录下限额使用10G硬盘，主要存放代码。做实验需用到大量数据，因此在专门路径中做实验
 # 先按自己的学号建立专属文件夹
@@ -82,7 +79,7 @@ $ mkdir data
 $ mkdir result
 ```
 
-### 数据存放位置  
+**数据存放位置**  
 DNA测序数据位于：  
 > [genomics_lab1_reads.fastq.gz](./genomics_lab1_reads.fastq.gz)  
 > 【更靠谱的数据】/data/stdata/genomic/lab01/data/reads_1.fq.gz  
@@ -92,8 +89,8 @@ DNA测序数据位于：
 > [genomics_lab1_ref.fa.gz](./genomics_lab1_ref.fa.gz)  
 > 【更靠谱的数据】/data/stdata/genomic/lab01/data/ref.fa  
 
-### 组装  
-#### 准备数据  
+### 3.3 组装  
+#### 3.3.1 准备数据  
 ```shell
 $ cd data
 
@@ -113,32 +110,32 @@ $ ln -s /data/stdata/genomic/lab01/data/ref.fa ./
 $ cd ../result
 ```
 
-#### 估算k值  
+#### 3.3.2 估算k值  
 ```shell
 $ ls ../data/reads_* > reads.file
 ```
 
-#### 准备kmergenie软件（如果未安装kmergenie）
-> 1. 下载：[kmergenie](http://kmergenie.bx.psu.edu/)
-> 2. 上传到集群并解压缩（### 注意：在home目录下解压缩）：
+**准备kmergenie软件（如果未安装kmergenie）**  
+1）下载：[kmergenie](http://kmergenie.bx.psu.edu/)  
+2）上传到集群并解压缩（### 注意：在home目录下解压缩）：  
 ```shell
 $ cd
 $ ln -s /data/stdata/genomic/software/kmergenie-1.7051.tar.gz # 如果下载不了kmergenie，可以建立软连接
 $ tar -zxvf kmergenie-1.7051.tar.gz
 ```
-> 3. 进入kmergenie-1.7051文件夹并编译
+3）进入kmergenie-1.7051文件夹并编译  
 ```shell
 $ cd kmergenie-1.7051
 $ make
 ```
-> 4. 将kmergenie加入到系统路径，方便调用（先回忆熟悉vi的使用，另外注意：老师的文件路径不是你的路径）
+4）将kmergenie加入到系统路径，方便调用（先回忆熟悉vi的使用，另外注意：老师的文件路径不是你的路径）
 ```shell
 $ vi ~/.bash_profile
 PATH=$PATH:$HOME/software/kmergenie-1.7051
 $ source ~/.bash_profile
 ```
 
-新建一个脚本文件，work_kmer.sh，写入以下内容（注意查看当前路径是否在lab1/result）:  
+**新建一个脚本文件：work_kmer.sh，写入以下内容（注意查看当前路径是否在lab1/result）:**  
 ```shell
 #!/bin/bash
 #$ -S /bin/bash
@@ -152,16 +149,17 @@ kmergenie reads.file
 ```shell
 # 用qsub提交任务至计算节点
 $ qsub work_kmer.sh
-$ qstat # 查看自己用户名下的kmer任务是否运行起来（r状态）
+# 查看自己用户名下的kmer任务是否运行起来（r状态）
+$ qstat
 ```
 
 > 结束后查看结果，选择最优k值27 (对应本地数据，同学们做的可能不是27)  
 > 结束后查看结果，选择最优k值111 (对应集群数据，同学们做的可能不是111)  
 
-注意！！！每次提交任务后，首先用qstat命令查看任务是否运行（r）状态，再及时查看*.o[JobID]日志文件，所有的报错和正常输出都在里面。  
+**注意！！！每次提交任务后，首先用qstat命令查看任务是否运行（r）状态，再及时查看\*.o[JobID]日志文件，所有的报错和正常输出都在里面。**
 
-#### 1. 用velvet组装
-新建一个脚本文件，work_velvet.sh，写下下列内容:  
+#### 3.3.3 用velvet组装
+ **新建一个脚本文件：work_velvet.sh，写下下列内容:**   
 ```shell
 #!/bin/bash
 #$ -S /bin/bash
@@ -177,8 +175,8 @@ velvetg ecoli.velvet -exp_cov auto
 $ qsub work_velvet.sh
 ```
 
-#### 2.用minia组装  
-新建一个脚本文件，work_minia.sh，写入下列内容:  
+#### 3.3.4 用minia组装  
+**新建一个脚本文件：work_minia.sh，写入下列内容:**  
 ```shell
 #!/bin/bash
 #$ -S /bin/bash
@@ -193,8 +191,8 @@ minia -in ../data/reads_1.fq.gz,../data/reads_2.fq.gz -kmer-size 27 -out ecoli.m
 $ qsub work_minia.sh
 ```
 
-#### 3. 用SPAdes组装  
-新建一个脚本文件，work_spades.sh，写入下列内容:  
+#### 3.3.5 用SPAdes组装  
+**新建一个脚本文件：work_spades.sh，写入下列内容:**  
 ```shell
 #!/bin/bash
 #$ -S /bin/bash
@@ -211,9 +209,9 @@ spades.py -t 4 -1 ../data/reads_1.fq.gz -2 ../data/reads_2.fq.gz -o ecoli.spades
 $ qsub work_spades.sh
 ```
 
-#### 组装效果评价
-[下载quast](https://sourceforge.net/projects/quast/)    
-上传到集群home目录  
+#### 3.3.6 组装效果评价
+**1）[下载quast](https://sourceforge.net/projects/quast/)**    
+**2）上传到集群home目录**  
 
 ```shell
 $ cd
@@ -224,12 +222,14 @@ $ rm -f quast-5.2.0.tar.gz
 $ cd YourStudentID/lab1/result/ # 返回工作路径
 $ ln -s ecoli.velvet/contigs.fa velvet.contigs.fa # 在当前路径建立组装结果文件的软链接，方便比较
 $ ln -s ecoli.spades/scaffolds.fasta spades.scaffolds.fa
+```
 
-# 用quast评价组装结果
+**3）用quast评价组装结果**  
+```sh
 $ ~/quast-5.2.0/quast.py -R ../data/ref.fa velvet.contigs.fa ecoli.minia.contigs.fa spades.scaffolds.fa
 ```
 
-#### 查看评价结果  
+**4）查看评价结果**  
 ```shell
 $ less quast_results/latest/report.txt 
 ```
