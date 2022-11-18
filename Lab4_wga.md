@@ -73,7 +73,7 @@ $ ps2pdf DZQ7_HK544.ps DZQ7_HK544.pdf
 **比对结果：**  
 [DZQ7_HK544.pdf](./DZQ7_HK544.pdf)
 
-### 3.2 多个基因组的WGA
+### 3.3 多个基因组的WGA
 
 ```shell
 $ cat ../data/*.fasta > genome.fasta
