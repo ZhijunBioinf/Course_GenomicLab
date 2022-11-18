@@ -5,25 +5,9 @@
 3. 掌握应用bwa, minimap2, samtools的使用  
 4. 理解SAM, BAM文件格式  
 
-## 二、基因组mapping原理  
+## 二、基因组mapping知识背景  
 ### 定义
 将短的reads回帖到长的参考基因组上，这一过程称之为mapping。
-
-### 两种策略  
-1. Global alignment  
-2. Local alignment  
-
-我们熟悉的blast和blat均属于第二类。   
-另外，不同长度的reads比对所用的策略也不一样，对于短reads，基于local alignment的软件如blast, blat不适合。  
-
-### mapping要求
-一般reads数目很大，读长短，参考基因组较长，对于mapping软件有两个要求：
-> 速度  
-> 准确性
-
-### mapping常用软件
-> 著名基因组软件：bwa, soap, bowtie, novoalign  
-> 著名转录组软件：STAR, hisat  
 
 ### What makes mapping challenging?（挑战）
 1. Volume of data
@@ -38,6 +22,17 @@
 1. How many mismatches to allow?
 2. Report how many matches?
 3. Require best match, or first/any that fit criteria?
+
+### 两种策略  
+1. Global alignment  
+2. Local alignment  
+
+我们熟悉的blast和blat均属于第二类。   
+另外，不同长度的reads比对所用的策略也不一样，对于短reads，基于local alignment的软件如blast, blat不适合。  
+
+### mapping常用软件
+> 著名基因组软件：bwa, soap, bowtie, novoalign  
+> 著名转录组软件：STAR, hisat  
 
 ## 三、上机操作  
 ### 进入genomelab环境（可不操作）
