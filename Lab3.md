@@ -36,7 +36,7 @@ $ ln -s /data/stdata/genomic/lab03/data/*.fasta ./
 $ cd ../results
 ```
 
-###（一）原核生物基因组注释--prokka    
+### （一）原核生物基因组注释--prokka    
 ```shell
 cd results
 ```
@@ -60,7 +60,7 @@ $ qsub work_prokka.sh
 ```
 **注释结果存放在anno目录中，查看结果，了解基因组注释常见的几种格式。** 
 
-###（二）真核生物基因组--maker  
+### （二）真核生物基因组--maker  
 ```shell
 # create control files for maker
 $ maker -CTL
