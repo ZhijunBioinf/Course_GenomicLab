@@ -58,7 +58,7 @@ prokka --outdir anno --prefix PROKKA ../data/ref.fa
 # 用qsub提交任务至计算节点
 $ qsub work_prokka.sh
 ```
-**注释结果存放在_anno_目录中，查看结果，了解基因组注释常见的几种格式。**  
+** 注释结果存放在 _anno_ 目录中，查看结果，了解基因组注释常见的几种格式。 **  
 
 ### （二）真核生物基因组--maker  
 ```shell
