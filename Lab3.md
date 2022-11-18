@@ -59,7 +59,7 @@ $ qsub work_prokka.sh
 ```
 **注释结果存放在 _anno_ 目录中，查看结果，了解基因组注释常见的几种格式。**
 
-### 3.3 真核生物基因组--maker  
+### 3.3 真核生物基因组注释--maker  
 **1）创建配置文件**  
 ```shell
 # create control files for maker
