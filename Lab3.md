@@ -74,7 +74,7 @@ $ maker -CTL
 -rw-rw-r-- 1 daizj daizj 4.7K Nov 17 17:19 maker_opts.ctl
 ```
 
-**编辑_maker_opts.ctl_文件，改变以下几个参数，几他的用默认参数（建议用vi编辑）：**  
+**编辑 _maker_opts.ctl_ 文件，改变以下几个参数，几他的用默认参数（建议用vi编辑）：**  
 ```shell
 genome=../data/dpp_contig.fasta  
 est=../data/dpp_est.fasta  
@@ -98,7 +98,7 @@ maker
 $ qsub work_maker.sh
 ```
 
- **真核生物基因组注释比较复杂，这里只是向大家介绍了maker的一般使用，如果要使用maker注释新的基因组，建议参阅：** 
+**真核生物基因组注释比较复杂，这里只是向大家介绍了 __maker_ 的一般使用，如果要使用maker注释新的基因组，建议参阅：**
 [http://gmod.org/wiki/MAKER_Tutorial](http://gmod.org/wiki/MAKER_Tutorial)  
 
  **查看结果文件** 
