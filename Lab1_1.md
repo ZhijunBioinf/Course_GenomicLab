@@ -5,7 +5,7 @@
 3. 掌握velvet, minia, SPAdes等短序列拼装软件使用 
 4. 熟悉用quast评价组装效果  
 
-## 二、基因组组装原理与方法  
+## 二、知识背景  
 ### 两种策略  
 **1. Overlap/layout/consensus**  
 主要应用在长reads组装上，如sanger测序数据和第三代测序数据，组装软件包括phrap, cap3等。基本步骤：
