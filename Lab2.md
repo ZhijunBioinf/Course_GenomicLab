@@ -5,7 +5,7 @@
 3. 掌握应用bwa, minimap2, samtools的使用  
 4. 理解SAM, BAM文件格式  
 
-## 二、基因组mapping知识背景  
+## 二、知识背景  
 ### 定义
 将短的reads回帖到长的参考基因组上，这一过程称之为mapping。
 
