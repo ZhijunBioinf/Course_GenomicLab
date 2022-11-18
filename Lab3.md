@@ -3,7 +3,7 @@
 1. 理解基因组注释，了解原核生物与真核生物基因结构的差异
 2. 掌握原核生物基因组注释方法(prokka)
 3. 了解真核生物基因组注释方法（maker）
-4. 了解常见基因组注释文件格式，如gff, bed
+4. 了解常见基因组注释文件格式，如[gff](https://www.ensembl.org/info/website/upload/gff.html?redirect=no), [bed](https://grch37.ensembl.org/info/website/upload/bed.html)
 
 
 ## 二、知识回顾与要求  
