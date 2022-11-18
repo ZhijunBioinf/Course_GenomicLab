@@ -58,7 +58,7 @@ prokka --outdir anno --prefix PROKKA ../data/ref.fa
 # 用qsub提交任务至计算节点
 $ qsub work_prokka.sh
 ```
-**注释结果存放在anno目录中，查看结果，了解基因组注释常见的几种格式。** 
+**注释结果存放在_anno_目录中，查看结果，了解基因组注释常见的几种格式。**  
 
 ### （二）真核生物基因组--maker  
 ```shell
@@ -74,7 +74,7 @@ $ maker -CTL
 -rw-rw-r-- 1 daizj daizj 4.7K Nov 17 17:19 maker_opts.ctl
 ```
 
-**编辑_maker_opts.ctl_文件，改变以下几个参数，几他的用默认参数（建议用vi编辑）：**
+**编辑_maker_opts.ctl_文件，改变以下几个参数，几他的用默认参数（建议用vi编辑）：**  
 ```shell
 genome=../data/dpp_contig.fasta  
 est=../data/dpp_est.fasta  
