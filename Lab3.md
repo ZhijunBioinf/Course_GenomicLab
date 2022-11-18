@@ -5,26 +5,25 @@
 3. 了解真核生物基因组注释方法（maker）
 4. 了解常见基因组注释文件格式，如[gff](https://www.ensembl.org/info/website/upload/gff.html?redirect=no), [bed](https://grch37.ensembl.org/info/website/upload/bed.html)
 
-## 二、知识回顾与要求  
+## 二、知识背景  
 - 生物的遗传信息物质是DNA，DNA是基因的载体，基因是生物行使功能的单位，支持着生命的基本构造和性能，将基因组所有基因找出来是基因组注释的第一步。
 - 目前基因组项目一般流程是首先组装得到基因组草图(_draft_)，然后对草图进行基因预测和基因功能预测，即所谓的基因组注释。基因组注释结果的好坏会直接影响后续的分析，所以基因组注释对于基因组项目非常关键。
 - 原核生物与真核生物由于基因结构不同，基因预测方法也不一样。真核生物基因组注释比较复杂，一般由基因组中心或相关专业人员完成。原核生物基因组注释相对比较简单，已有较成熟的基因组注释软件。
 
-### 原核生物与真核生物基因结构差异
+**原核生物与真核生物基因结构差异**  
 - 原核生物：不含内含子 -> RNA与DNA序列一致  
 - 真核生物：含有内含子
 
 ## 三、上机操作
-### 进入genomelab环境（可不进入genomelab环境）
+**进入genomelab环境（可不操作）**  
 ```shell
 $ source /opt/miniconda3/bin/activate
 $ conda activate genomelab
 ```
-
-### 数据存放位置  
+### 3.1 数据及工作目录准备  
+**数据存放位置**  
 - /data/stdata/genomic/lab03/data/  
 
-### 数据及工作目录准备  
 ```shell
 $ mkdir lab3
 $ cd lab3
@@ -36,7 +35,7 @@ $ ln -s /data/stdata/genomic/lab03/data/*.fasta ./
 $ cd ../results
 ```
 
-### （一）原核生物基因组注释--prokka    
+### 3.2 原核生物基因组注释--prokka    
 ```shell
 cd results
 ```
@@ -60,28 +59,29 @@ $ qsub work_prokka.sh
 ```
 **注释结果存放在 _anno_ 目录中，查看结果，了解基因组注释常见的几种格式。**
 
-### （二）真核生物基因组--maker  
+### 3.3 真核生物基因组--maker  
+**1）创建配置文件**  
 ```shell
 # create control files for maker
 $ maker -CTL
-```
 
- **会产生4个参数设置文件：** 
-```shell
+# 会产生4个参数设置文件：
 -rw-rw-r-- 1 daizj daizj 1.5K Nov 17 17:19 maker_bopts.ctl
 -rw-rw-r-- 1 daizj daizj  893 Nov 17 17:19 maker_evm.ctl
 -rw-rw-r-- 1 daizj daizj 1.7K Nov 17 17:19 maker_exe.ctl
 -rw-rw-r-- 1 daizj daizj 4.7K Nov 17 17:19 maker_opts.ctl
 ```
 
-**编辑 _maker_opts.ctl_ 文件，改变以下几个参数，几他的用默认参数（建议用vi编辑）：**  
+**2）编辑 _maker_opts.ctl_ 文件（建议用vi编辑）：**  
 ```shell
+# 找到相应行，将文件路径赋给相应参数
 genome=../data/dpp_contig.fasta  
 est=../data/dpp_est.fasta  
 protein=../data/dpp_protein.fasta  
 est2genome=1  
 ```
 
+**3）提交任务**  
  **work_maker.sh** 
 ```shell
 #!/bin/bash
@@ -101,7 +101,7 @@ $ qsub work_maker.sh
 **真核生物基因组注释比较复杂，这里只是向大家介绍了 _maker_ 的一般使用，如果要使用 _maker_ 注释新的基因组，建议参阅：**
 [http://gmod.org/wiki/MAKER_Tutorial](http://gmod.org/wiki/MAKER_Tutorial)  
 
- **查看结果文件** 
+**4）查看结果** 
 ```shell
 $ ln -s dpp_contig.maker.output/dpp_contig_datastore/05/1F/contig-dpp-500-500
 $ cd contig-dpp-500-500/
@@ -113,9 +113,9 @@ $ ls -lh
 drwxrwxr-x 3 daizj daizj 4.0K Nov 17 18:32 theVoid.contig-dpp-500-500
 ```
 
-### 用Artemis查看注释结果（请在本地完成）  
+### 3.4 用Artemis查看注释结果（本地完成）  
 - 下载地址：http://sanger-pathogens.github.io/Artemis/  
-- 将 _prokka_ 注释得到的 _PROKKA.gff_ 文件传到本地电脑上  
+- 将 _prokka_ 注释得到的 _PROKKA.gff_ 文件下载到本地  
 - 打开 _Artemis_ ，装载注释结果  
 >    1. Start Artemis  
 >    2. Click OK  
