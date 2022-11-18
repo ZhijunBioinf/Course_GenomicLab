@@ -1,4 +1,4 @@
-# 实验二 Mapping  
+# 实验二 基因组Mapping  
 ## 一、实验目的  
 1. 理解比对（[mapping, alignment](https://www.eurl-ar.eu/CustomerData/Files/Folders/31-training-course-kgs-lyngby-2018/435_alignment-and-mapping-philip-clausen.pdf)）的含义  
 2. 理解全局比对和局部比对的区别和应用  
