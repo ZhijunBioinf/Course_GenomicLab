@@ -78,7 +78,7 @@ $ cd lab1
 $ mkdir data
 $ mkdir result
 ```
-
+### 3.3 准备数据  
 **数据存放位置**  
 DNA测序数据位于：  
 > [genomics_lab1_reads.fastq.gz](./genomics_lab1_reads.fastq.gz)  
@@ -89,8 +89,6 @@ DNA测序数据位于：
 > [genomics_lab1_ref.fa.gz](./genomics_lab1_ref.fa.gz)  
 > 【更靠谱的数据】/data/stdata/genomic/lab01/data/ref.fa  
 
-### 3.3 组装  
-#### 3.3.1 准备数据  
 ```shell
 $ cd data
 
@@ -110,7 +108,7 @@ $ ln -s /data/stdata/genomic/lab01/data/ref.fa ./
 $ cd ../result
 ```
 
-#### 3.3.2 估算k值  
+### 3.4 估算k值  
 ```shell
 $ ls ../data/reads_* > reads.file
 ```
@@ -158,7 +156,7 @@ $ qstat
 
 **注意！！！每次提交任务后，首先用qstat命令查看任务是否运行（r）状态，再及时查看\*.o[JobID]日志文件，所有的报错和正常输出都在里面。**
 
-#### 3.3.3 用velvet组装
+### 3.5 用velvet组装
  **新建一个脚本文件：work_velvet.sh，写下下列内容:**   
 ```shell
 #!/bin/bash
@@ -175,7 +173,7 @@ velvetg ecoli.velvet -exp_cov auto
 $ qsub work_velvet.sh
 ```
 
-#### 3.3.4 用minia组装  
+### 3.6 用minia组装  
 **新建一个脚本文件：work_minia.sh，写入下列内容:**  
 ```shell
 #!/bin/bash
@@ -191,7 +189,7 @@ minia -in ../data/reads_1.fq.gz,../data/reads_2.fq.gz -kmer-size 27 -out ecoli.m
 $ qsub work_minia.sh
 ```
 
-#### 3.3.5 用SPAdes组装  
+### 3.7 用SPAdes组装  
 **新建一个脚本文件：work_spades.sh，写入下列内容:**  
 ```shell
 #!/bin/bash
@@ -209,7 +207,7 @@ spades.py -t 4 -1 ../data/reads_1.fq.gz -2 ../data/reads_2.fq.gz -o ecoli.spades
 $ qsub work_spades.sh
 ```
 
-#### 3.3.6 组装效果评价
+### 3.8 组装效果评价
 **1）[下载quast](https://sourceforge.net/projects/quast/)**    
 **2）上传到集群home目录**  
 
