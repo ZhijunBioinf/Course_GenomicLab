@@ -119,7 +119,7 @@ drwxrwxr-x 3 daizj daizj 4.0K Nov 17 18:32 theVoid.contig-dpp-500-500
 - 打开 _Artemis_ ，装载注释结果  
 >    1. Start Artemis  
 >    2. Click OK  
->    3. Go to File -> Open File Manager  
+>    3. Go to File -> Open ...  
 >    4. Navigate to the folder  
 >    5. Choose the PROKKA.gff file you downloaded from the server
 
