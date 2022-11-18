@@ -5,22 +5,25 @@
 3. 掌握应用bwa, minimap2, samtools的使用  
 4. 理解SAM, BAM文件格式  
 
-## 二、知识回顾  
+## 二、基因组mapping原理  
+### 定义
+将短的reads回帖到长的参考基因组上，这一过程称之为mapping。
 
-### 比对的两种策略  
-1. Global alignment
-2. Local alignment
+### 两种策略  
+1. Global alignment  
+2. Local alignment  
 
 我们熟悉的blast和blat均属于第二类。   
 另外，不同长度的reads比对所用的策略也不一样，对于短reads，基于local alignment的软件如blast, blat不适合。  
-将短的reads回帖到长的参考基因组上，这一过程称之为mapping。一般reads数目很大，读长短，参考基因组较长，对于mapping软件有两个要求：
 
-> 1. 速度
-> 2. 准确性
- 
-Mapping软件众多，比较有名的包括bwa, soap, bowtie, novoalign  
-另外，由于真核生物mRNA不含有内含子，与一般的DNA mapping软件要求不一样，故转录组mapping使用的软件也不一样，转录组mapping软件比较有名的包括：STAR, hisat  
-本实验主要介绍一般意义上的DNA mapping软件的使用。  
+### mapping要求
+一般reads数目很大，读长短，参考基因组较长，对于mapping软件有两个要求：
+> 速度  
+> 准确性
+
+### mapping常用软件
+> 著名基因组软件：bwa, soap, bowtie, novoalign  
+> 著名转录组软件：STAR, hisat  
 
 ### What makes mapping challenging?（挑战）
 1. Volume of data
@@ -31,7 +34,7 @@ Mapping软件众多，比较有名的包括bwa, soap, bowtie, novoalign
 6. Indels
 7. Splicing (transcriptome)
 
-### 几个影响mapping速度的参数  
+### 影响mapping速度的因素
 1. How many mismatches to allow?
 2. Report how many matches?
 3. Require best match, or first/any that fit criteria?
@@ -42,7 +45,8 @@ Mapping软件众多，比较有名的包括bwa, soap, bowtie, novoalign
 $ source /opt/miniconda3/bin/activate
 $ conda activate genomelab
 ```
-### 创建工作目录  
+
+### 3.1 创建工作目录  
 ```shell
 $ cd YourStudentID/genomicLab
 $ mkdir lab2
@@ -51,26 +55,28 @@ $ mkdir data
 $ mkdir results
 ```
 
-### 实验数据  
+### 3.2 数据存放位置  
 > /data/stdata/genomic/lab02/data/ref.fa (参考序列)  
 > /data/stdata/genomic/lab02/data/reads_1.fq.gz, /data/stdata/genomic/lab02/data/reads_2.fq.gz (illumina reads)  
 > /data/stdata/genomic/lab02/data/pb_ecoli_0001.fastq (pacbio reads)  
 
-### (一) Mapping the short reads to the reference genome using bwa   
-#### 1. 准备数据和index参考基因组  
+### 3.3 使用 _[bwa](https://www.jianshu.com/p/19f58a07e6f4)_ 将reads比对到参考基因组   
+#### 1）准备数据 
 ```shell
 $ cd data
 $ ln -s /data/stdata/genomic/lab02/data/reads_* ./
 $ ln -s /data/stdata/genomic/lab02/data/ref.fa ./
 $ ln -s /data/stdata/genomic/lab02/data/pb_ecoli_0001.fastq ./
-
+```
+#### 2）获取参考基因组大小信息
+```sh
 $ samtools faidx ref.fa
 $ mkdir index
 $ cd index
 $ ln -s ../ref.fa ./
 ```
 
-#### 2. 建索引  
+#### 3）使用bwa对参考基因组建立索引  
 work_bwaIndex.sh  
 ```shell
 #!/bin/bash
@@ -87,7 +93,7 @@ bwa index ref.fa
 $ qsub work_bwaIndex.sh
 ```
 
-#### 3. Mapping the reads to the reference genome using [bwa](https://www.jianshu.com/p/19f58a07e6f4)  
+#### 4）Mapping using _bwa_  
 ```shell
 cd ../../results
 ```
@@ -111,7 +117,7 @@ samtools index mapping.sort.bwa.bam
 $ qsub work_bwa.sh
 ```
 
-### (二)Mapping the short reads to the reference genome using [minimap2](https://www.jianshu.com/p/d1868194b65e)  
+### 3.4 使用 _[minimap2](https://www.jianshu.com/p/d1868194b65e)_ 将reads比对到参考基因组  
 
 work_minimap2.sh  
 ```shell
@@ -132,7 +138,7 @@ samtools index mapping.sort.mm.bam
 $ qsub work_minimap2.sh
 ```
 
-### (三) Mapping the long reads to the reference genome using minimap2  
+### 3.5 使用 _[minimap2](https://www.jianshu.com/p/d1868194b65e)_ 将三代测序reads比对到参考基因组  
 work_minimap_pb.sh  
 ```shell
 #!/bin/bash
@@ -152,7 +158,7 @@ samtools index mapping.sort.pb.bam
 $ qsub work_minimap_pb.sh
 ```
 
-### (四) 显示和比较比对结果  
+### 3.6 显示和比较比对结果  
 [使用IGV](https://blog.csdn.net/qq_22253901/article/details/119845652)查看比对结果  
 ![](./Lab2_IGV.png) 
 
