@@ -7,13 +7,13 @@
 
 ## 二、基因组组装组装原理与方法  
 ### 两种策略  
-   1. Overlap/layout/consensus  
+**1. Overlap/layout/consensus**  
 主要应用在长reads组装上，如sanger测序数据和第三代测序数据，组装软件包括phrap, cap3等。基本步骤：
 > 1）Calculate all overlaps. 计算重叠片断  
 > 2）Cluster based on overlap. 重叠片断聚类  
 > 3）Do a multiple sequence alignment. 多序列比对,取一致序列 
 
-   2. De Bruijn k-mer graphs  
+**2. De Bruijn k-mer graphs**  
 主要应用于短reads数据组装上，包括velvet, soapdenovo, ABYSS等。基本步骤：
 > 1）Building the k-mer graph，构建k-mer图，有的软件会在之前加一步，对reads进行纠错  
 > 2）Construct contigs，搜索路径  
