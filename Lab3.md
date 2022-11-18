@@ -98,7 +98,7 @@ maker
 $ qsub work_maker.sh
 ```
 
-**真核生物基因组注释比较复杂，这里只是向大家介绍了 __maker_ 的一般使用，如果要使用maker注释新的基因组，建议参阅：**
+**真核生物基因组注释比较复杂，这里只是向大家介绍了 _maker_ 的一般使用，如果要使用maker注释新的基因组，建议参阅：**
 [http://gmod.org/wiki/MAKER_Tutorial](http://gmod.org/wiki/MAKER_Tutorial)  
 
  **查看结果文件** 
