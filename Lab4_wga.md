@@ -105,6 +105,7 @@ $ Mauve my_seqs.xmfa
 > 1）安装[Mauve](http://darlinglab.org/mauve/download.html) (需要64位JRE支持)  
 > 2）将my_seqs.xmfa下载到本地，用Mauve打开，观察结果
 
+**比对结果（[图片解读](https://darlinglab.org/mauve/user-guide/viewer.html)）：**  
 [mauve.jpg](./mauve.jpg)
 
 ## 四、作业与思考  
