@@ -96,7 +96,7 @@ $ qsub work_mauve.sh
 ```
 
 **查看结果**  
-- 集群上查看（Note: 需要X11图形支持）
+- 集群上查看（Note: 需要X11图形支持。### 不建议，多位同学同时输出图形，可能导致网络中断）
 ```shell
 $ Mauve my_seqs.xmfa
 ```
