@@ -70,7 +70,7 @@ $ mummerplot --layout --small --postscript -p DZQ7_HK544 DZQ7_HK544.delta
 $ ps2pdf DZQ7_HK544.ps DZQ7_HK544.pdf
 ```
 
-**比对结果：**  
+**比对结果（[图片解读](https://www.jianshu.com/p/3b8b8a8594df)）：**  
 [DZQ7_HK544.pdf](./DZQ7_HK544.pdf)
 
 ### 3.3 多个基因组的WGA
