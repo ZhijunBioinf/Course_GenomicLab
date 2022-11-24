@@ -19,7 +19,7 @@
 > 2）Construct contigs，搜索路径  
 > 3）Scaffolding and fill gaps，构建scaffold并填洞  
 
-**本实验使用第二种策略的组装软件velvet, minia和SPAdes** 
+**本实验使用基于第二种策略的组装软件：velvet, minia和SPAdes** 
 
 ### 如何选择合适k
 - 多试几个k，看组装效果
