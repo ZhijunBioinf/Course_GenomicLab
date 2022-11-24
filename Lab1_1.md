@@ -232,7 +232,7 @@ $ ~/quast-5.2.0/quast.py -R ../data/ref.fa velvet.contigs.fa ecoli.minia.contigs
 $ less quast_results/latest/report.txt 
 ```
 
-## 四、作业  
+## 四、作业与思考  
 1. 不同k-mer值对组装的影响，对velvet和minia用41和51进行组装，比较组装效果  
 2. 熟悉和理解基因组组装一些术语名词，如N50, NG50, contig, scaffold, gap等
 3. 理解k-mer频次分布图，如何根据k-mer频次分布图估算基因组大小及杂合度  
