@@ -126,7 +126,7 @@ $ R
 ```
 
 ```R
-# 安装tidyverse包，DESeq2包
+# 安装DESeq2包
 > install.packages("BiocManager") # 选择中国镜像
 > BiocManager::install("DESeq2")
 > q()
