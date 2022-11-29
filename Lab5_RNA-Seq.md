@@ -4,7 +4,7 @@
 2. 了解RNA、DNA比对的区别
 3. 掌握DESeq2分析差异表达基因(Differentially Expressed Genes, DEGs)方法
 
-## 二、知识回顾  
+## 二、知识背景  
 * 转录组测序(RNA-Seq)应用非常广泛，目前测序市场有超过一半做的是转录组。  
 * 转录组测序是对生物体内所有的RNA进行测序，一般可以按测序目标不同而分为mRNA, microRNA, total RNA测序，传统意义上的RNA-Seq指的是mRNA测序。
 * 一般RNA-Seq项目分析包括以下几个步骤：
@@ -173,7 +173,7 @@ $ Rscript my_deseg2.R
 ## 四、作业与思考  
 比较两种水稻品种经热处理后基因表达变化情况有什么差异。  
 
-## 五、参考文献  
+## 五、参考资料  
 1. [DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html) 
 2. [TPMcalculator](https://github.com/ncbi/TPMCalculator)  
 3. [HISAT2](http://daehwankimlab.github.io/hisat2/manual/)
