@@ -167,6 +167,6 @@ $ Rscript my_deseg2.R
 比较两种水稻品种经热处理后基因表达变化情况有什么差异。  
 
 ## 五、参考资料  
-1. [DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html) 
+1. [HISAT2](http://daehwankimlab.github.io/hisat2/manual/)  
 2. [TPMcalculator](https://github.com/ncbi/TPMCalculator)  
-3. [HISAT2](http://daehwankimlab.github.io/hisat2/manual/)
+3. [DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)  
