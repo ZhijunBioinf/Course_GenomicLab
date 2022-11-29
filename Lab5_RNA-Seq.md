@@ -15,10 +15,10 @@
 > 4. 比较不同组之间的DE基因
 > 5. DE基因的功能挖掘
  
-本实验主要介绍DESeq2的使用，DESeq2是用来做差异基因分析的一套R软件包，  
+本实验主要介绍DESeq2的使用，DESeq2是用来做差异基因分析的一套R软件包。  
 
 
-### 材料背景  
+### 数据来源  
 有两个水稻品种材料，品种BR-IRGA 409耐热，品种IRGA 428不耐热，拟比较这两个品种经热处理后基因表达差异。  
 
 | RUN	| Class	| Cultivar |	Status |	Group	| Description |
@@ -38,31 +38,27 @@
 
 
 ## 三、上机操作  
-### 进入genomelab环境
+### 进入genomelab环境（可不操作）
 ```shell
 $ source /opt/miniconda3/bin/activate
 $ conda activate genomelab
 ```
 
-### 数据存放位置及工作目录准备  
+### 3.1 数据及工作目录准备  
 ```shell
 Data: /data/stdata/genomic/lab05/data
 Ref: /data/stdata/genomic/lab05/data/Ref-data
 
-# 按自己学号(YourStudentID)建立文件夹
-$ cd /data/stdata/genomic/bioinfo2019
-$ mkdir YourStudentID
-$ mkdir YourStudentID/lab5
-$ cd YourStudentID/lab5
-
+$ mkdir lab5
+$ cd lab5
 $ ln -s /data/stdata/genomic/lab05/data/
 $ ln -s /data/stdata/genomic/lab05/data/Ref-data/ ref
-$ mkdir result
-$ cd result
+$ mkdir results
+$ cd results
 ```
 
-### 1. Mapping(较慢，运行约8小时)
-work_mapping.sh  
+### 3.2 Mapping（较慢，运行约8小时）
+**work_mapping.sh**  
 ```shell
 #!/bin/bash
 #$ -S /bin/bash
@@ -73,7 +69,7 @@ work_mapping.sh
 source /opt/miniconda3/bin/activate
 conda activate genomelab
 
-for i in $(seq 291 302)
+for i in {291..302}
 do 
   hisat2 -p 1 -x ../ref/index/osa -q ../data/SRR7760${i}.1.fastq | \
   samtools view -b - | \
@@ -86,17 +82,14 @@ done
 $ qsub work_mapping.sh
 ```
 
-### 2. Count（运行约1小时）
-work_count.sh  
+### 3.3 Count（运行约1小时。注意：要确定"3.2 Mapping"的12个bam文件都产生后，再运行3.3）
+**work_count.sh**  
 ```shell
 #!/bin/bash
 #$ -S /bin/bash
 #$ -N count
 #$ -j y
 #$ -cwd
-
-source /opt/miniconda3/bin/activate
-conda activate genomelab
 
 TPMCalculator -g ../ref/Oryza_sativa.IRGSP-1.0.gtf -d ./ -a
 ```
@@ -106,7 +99,7 @@ TPMCalculator -g ../ref/Oryza_sativa.IRGSP-1.0.gtf -d ./ -a
 $ qsub work_count.sh
 ```
 
-### 3. Merge the counting matrix（直接运行paste, sed命令）
+### 3.4 Merge the counting matrix（直接运行paste, sed命令）
 ```shell
 $ paste <(cut -f 1,6 SRR7760291.sort_genes.out) \
 <(cut -f 6 SRR7760292.sort_genes.out) \
@@ -125,15 +118,16 @@ $ paste <(cut -f 1,6 SRR7760291.sort_genes.out) \
 $ sed -i '1c\GeneID\tSRR7760291\tSRR7760292\tSRR7760293\tSRR7760294\tSRR7760295\tSRR7760296\tSRR7760297\tSRR7760298\tSRR7760299\tSRR7760300\tSRR7760301\tSRR7760302' counts.tsv 
 ```
 
-### 4. DE analysis(使用R包实现)
+### 3.5 DE analysis(使用R包实现)
 ```shell
-# 进入R
+# 载入之前在conda中安装的R环境r_env
+$ conda activate r_env
 $ R
 ```
 
 ```R
 # 安装tidyverse包，DESeq2包
-> install.packages("tidyverse", repos = "https://mirror.lzu.edu.cn/CRAN/")
+> install.packages("BiocManager") # 选择中国镜像
 > BiocManager::install("DESeq2")
 > q()
 ```
@@ -166,7 +160,6 @@ write.csv(res.IRGA409[order(res.IRGA409$pvalue),],"Results_409.csv")
 ```
 
 ```shell
-$ conda activate
 $ Rscript my_deseg2.R
 ```
 
