@@ -122,6 +122,8 @@ $ sed -i '1c\GeneID\tSRR7760291\tSRR7760292\tSRR7760293\tSRR7760294\tSRR7760295\
 ```shell
 # 载入之前在conda中安装的R环境r_env
 $ conda activate r_env
+# 安装XML包
+$ conda install -c conda-forge r-xml
 $ R
 ```
 
