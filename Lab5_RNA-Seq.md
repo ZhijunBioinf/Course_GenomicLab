@@ -162,7 +162,7 @@ write.csv(res.IRGA409[order(res.IRGA409$pvalue),],"Results_409.csv")
 ```
 
 ```shell
-$ Rscript my_deseg2.R
+$ Rscript my_deseq2.R
 ```
 
 ## 四、作业与思考  
