@@ -168,5 +168,5 @@ $ Rscript my_deseg2.R
 
 ## 五、参考资料  
 1. [HISAT2](http://daehwankimlab.github.io/hisat2/manual/)  
-2. [TPMcalculator](https://github.com/ncbi/TPMCalculator)  
+2. [TPMcalculator](https://gitee.com/ZhijunBioinf/TPMCalculator)  
 3. [DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)  
