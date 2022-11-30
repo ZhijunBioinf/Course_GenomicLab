@@ -166,7 +166,7 @@ $ Rscript my_deseq2.R
 ```
 
 ## 四、作业与思考  
-比较两种水稻品种经热处理后基因表达变化情况有什么差异。  
+比较两种水稻品种经热处理后基因表达变化情况有什么差异（提示：需要从counts.tsv文件中提取相应列，再修改my_deseq2.R脚本）。  
 
 ## 五、参考资料  
 1. [HISAT2](http://daehwankimlab.github.io/hisat2/manual/)  
