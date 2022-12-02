@@ -94,6 +94,11 @@ $ qsub work_mapping.sh
 TPMCalculator -g ../ref/Oryza_sativa.IRGSP-1.0.gtf -d ./ -a
 ```
 
+ **确认"3.3 Count"运行完成后（每个样本会产生\*sort_genes.\*文件），删掉之前运行的bam文件，节省磁盘资源** 
+```sh
+rm -f *.bam *.log
+```
+
 ```shell
 # 提交任务
 $ qsub work_count.sh
