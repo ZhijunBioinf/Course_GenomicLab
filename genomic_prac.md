@@ -1,27 +1,30 @@
 # 基因组学教学实习  
 
-## 学生工作目录
-/data/stdata/genomic/bioinfo2019/
-
-## 进入genomelab环境
+## 进入genomelab环境（可不操作）
 ```sh
 $ source /opt/miniconda3/bin/activate  
 $ conda activate genomelab
 ```
 
-## 1. 本地Blast  
-
-### 1.1 准备数据  
+## 1. 本地Blast（回顾、热身）  
+### 1.1 数据及工作目录准备  
 ```sh
-# 使用curl命令下载数据（Note：数据已经下载，放在`/data/lab/genomic/prac/blast`目录中）
+$ cd YourStudentID
+$ mkdir prac_week; cd prac_week
+$ mkdir problem1; cd problem1
+
+# 使用curl命令下载数据
 $ curl -O ftp://ftp.ncbi.nih.gov/refseq/M_musculus/mRNA_Prot/mouse.1.protein.faa.gz
 $ curl -O ftp://ftp.ncbi.nih.gov/refseq/M_musculus/mRNA_Prot/mouse.2.protein.faa.gz
 $ curl -O ftp://ftp.ncbi.nih.gov/refseq/D_rerio/mRNA_Prot/zebrafish.1.protein.faa.gz
-$ gunzip *.faa.gz
-# ------- 以上命令不需运行 ---------
 
-# 只需要使用ln命令建立数据的软链接
-# 文件夹应有3个文件：mouse.1.protein.faa, mouse.2.protein.faa, zebrafish.1.protein.faa
+# 解压缩
+$ gunzip *.faa.gz
+
+# 如果下载经常中断，可通过建立软链接获取数据
+$ ln -s /data/stdata/genomic/practice_week/mouse.1.protein.faa
+$ ln -s /data/stdata/genomic/practice_week/mouse.2.protein.faa
+$ ln -s /data/stdata/genomic/practice_week/zebrafish.1.protein.faa
 ```
 
 ### 1.2 建索引  
@@ -30,20 +33,20 @@ $ makeblastdb -in zebrafish.1.protein.faa -dbtype prot
 ```
 
 ### 1.3 运行blastp  
-```bash
+```sh
 # 我们先取2条序列试一下  
 $ head -n 11 mouse.1.protein.faa > mm-first.faa
 $ blastp -query mm-first.faa -db zebrafish.1.protein.faa
 $ blastp -query mm-first.faa -db zebrafish.1.protein.faa -out mm-first.x.zebrafish.txt
-$ blastp -query mm-first.faa -db zebrafish.1.protein.faa -outfmt 6
 $ less mm-first.x.zebrafish.txt
+$ blastp -query mm-first.faa -db zebrafish.1.protein.faa -outfmt 6
 
-# 现在取前5000行，用于后续分析
-$ head -n 5000 mouse.1.protein.faa > mouse.1_sub5k.faa
-$ head -n 5000 mouse.2.protein.faa > mouse.2_sub5k.faa
+# 现在取前5000行（到下一条序列前），用于后续分析
+$ head -n 5001 mouse.1.protein.faa > mouse.1_sub5k.faa
+$ head -n 5005 mouse.2.protein.faa > mouse.2_sub5k.faa
 ```
 
-* blast1.sh
+ **blast1.sh**  
 ```bash
 #!/bin/bash
 #$ -S /bin/bash
