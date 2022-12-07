@@ -75,18 +75,16 @@ plot(blast_out1$pident, blast_out1$bitscore)
 plot(blast_out2$pident, blast_out2$bitscore)
 plot(blast_out1$pident  * (blast_out1$qend - blast_out1$qstart), blast_out1$bitscore)
 ```
-思考题：如果只统计the best hsp evalue，要如何改？
+思考：如果只统计the best hsp evalue，要如何改？
 
-## 2. 根据blast结果对蛋白序列进行聚类 -- 构建基因家族  
-任务：构建Brevibacillus基因家族  
-构建基因家族可以使用[OrthoMCL](http://orthomcl.org/orthomcl/)，本实验使用的方法与OrthoMCL类似，目的是为了让大家更清楚背后的原理。  
-
-截止2021年12月，GenBank中有125个芽孢杆菌菌株的基因组序列已经释放，[https://www.ncbi.nlm.nih.gov/genome/browse#!/overview/Brevibacillus](https://www.ncbi.nlm.nih.gov/genome/browse#!/overview/Brevibacillus)，但在RefSeq中只有119个菌株有基因组序列，我们选取其中80个菌株的蛋白进行聚类分析，构建基因家族  
+## 2. 构建Brevibacillus基因家族  
+GenBank中有100多个芽孢杆菌（Brevibacillus）菌株的[基因组序列](https://www.ncbi.nlm.nih.gov/genome/browse#!/overview/Brevibacillus)已经释放，我们选取RefSeq中的80个菌株蛋白进行聚类分析，构建基因家族  
 ![](https://micans.org/mcl/img/fa75.png) . 
 
-### 2.1 数据准备：  
+### 2.1 数据准备并收集基因组信息  
 请完成以下表格，收集基因组信息：[https://docs.qq.com/sheet/DUEZiWFBEcktGTWRO](https://docs.qq.com/sheet/DUEZiWFBEcktGTWRO)  
 
+ **Note: ncbi的ftp不好下载，可转到下方使用建立软链接的方式获取数据** 
 ```sh
 curl -O ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/003/963/515/GCF_003963515.1_ASM396351v1/GCF_003963515.1_ASM396351v1_protein.faa.gz
 curl -O ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/006/715/575/GCF_006715575.1_ASM671557v1/GCF_006715575.1_ASM671557v1_protein.faa.gz
@@ -171,9 +169,24 @@ curl -O ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/744/635/GCF_000744635.1_A
 gunzip *.gz
 ```
 
-### 2.2 对蛋白序列进行两两比对   
-做Blast之前请改下序列名，在各自序列名后面加上GCF编号，如将`WP_003333770.1`改成`WP_003333770.1:GCF_000010165`，将所有蛋白序列合并到一个文件`all_pro.faa`，建索引`makeblastdb -in all_pro.faa -dbtype prot`。  
+ **建立软链接获取数据** 
+```sh
+$ cd ..
+$ mkdir problem2; cd problem2
+$ ln -s /data/stdata/genomic/practice_week/BrevibacillusData/*.faa .
+```
 
+### 2.2 对蛋白序列进行两两比对   
+- 为保证后续分析时各菌株的蛋白序列具有唯一标识，在Blast之前需在各菌株的每条序列名后面加上GCF编号，如将`WP_003333770.1`改成`WP_003333770.1:GCF_000010165`。
+- 再将所有蛋白序列合并到一个文件`all_pro.faa`。  
+
+ **使用blast比对（不建议）**   
+- 建立索引  
+```sh
+makeblastdb -in all_pro.faa -dbtype prot
+```
+
+- 比对  
 blastAll.sh
 ```sh
 #!/bin/bash
@@ -185,8 +198,13 @@ blastp -query all_pro.faa -db all_pro.faa -out allBlast.tsv -outfmt 6 -evalue 1e
 ```
 Blast速度太慢！！！建议大家换成diamond比对，diamond速度是blast的500-20000倍。  
 
-* 首先对蛋白序列进行建库，`diamond makedb --in all_pro.faa -d allpep`，然后用diamond进行两两比对  
+ **使用diamond比对（建议）**   
+- 建库
+```sh
+diamond makedb --in all_pro.faa -d allpep
+```
 
+- 比对  
 work_diamond.sh
 ```sh
 #!/bin/bash
@@ -195,14 +213,15 @@ work_diamond.sh
 #$ -j y
 #$ -cwd
 
-source /opt/miniconda3/bin/activate
-conda activate genomelab
-
 diamond blastp -d allpep -q all_pro.faa -o allBlast.tsv -f 6
 ```
 
-### 2.3 提取每个hit的score值，构建一个表征两条序列的相似性的特征值  
+```sh
+# 提交任务
+qsub work_diamond.sh
+```
 
+### 2.3 提取序列相似性score值  
 ```sh
 cut -f 1,2,12 allBlast.tsv > allBlast.abc
 ```
