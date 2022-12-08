@@ -78,7 +78,7 @@ plot(blast_out1$pident  * (blast_out1$qend - blast_out1$qstart), blast_out1$bits
 思考：如果只统计the best hsp evalue，要如何改？
 
 ## 2. 构建Brevibacillus基因家族  
-GenBank中有100多个芽孢杆菌（Brevibacillus）菌株的[基因组序列](https://www.ncbi.nlm.nih.gov/genome/browse#!/overview/Brevibacillus)已经释放，我们选取RefSeq中的80个菌株蛋白进行聚类分析，构建基因家族  
+GenBank中有151个（截止2022年12月）芽孢杆菌（Brevibacillus）菌株的[基因组序列](https://www.ncbi.nlm.nih.gov/genome/browse#!/overview/Brevibacillus)已经释放，我们选取RefSeq中的80个菌株蛋白进行聚类分析，构建基因家族  
 ![](https://micans.org/mcl/img/fa75.png) . 
 
 ### 2.1 数据准备并收集基因组信息  
